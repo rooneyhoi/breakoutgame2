@@ -249,15 +249,13 @@ function mouseMoveHandler(e) {
 }
 
 function handleTouchMove(e) {
-  console.log('touch move')
-  const relativeX = e.clientX - playGround.offsetLeft;
+  const relativeX = e.touches[0].clientX - playGround.offsetLeft;
   if(relativeX > 0 && relativeX < playGround.width) {
       paddle.x = relativeX - paddle.w/2;
   }
 }
 
 function handleTouchStart(e) {
-  console.log('touch start')
   const relativeX = e.clientX - playGround.offsetLeft;
   if(relativeX > 0 && relativeX < playGround.width) {
       paddle.x = relativeX - paddle.w/2;
