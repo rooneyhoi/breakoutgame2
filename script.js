@@ -1,12 +1,38 @@
 // Global variables
 let userScore = 0;
-const brickRowCount = 9;
-const brickColumnCount = 5
+let brickRowCount = 9;
+let brickColumnCount = 5
+let mobilePadding = 0;
 
 // Get the play ground div
 const playGround = document.getElementById("playGround");
 playGround.width = 800;
 playGround.height = 600;
+
+// Create bricks object
+const brickInfo = {
+  w: 70,
+  h: 20,
+  padding: 10,
+  offsetX: 45,
+  offsetY: 60,
+  visible: true
+}
+
+function mobileSettings(){
+  if (screen.availWidth < 800 ){
+    playGround.width = screen.availWidth * 0.95;  
+    brickInfo.padding = 5;  
+    brickInfo.offsetX = 8;
+    brickRowCount = 5;
+    brickColumnCount = 9;  
+  } 
+  else{
+    mobilePadding = brickInfo.padding
+  }
+}
+
+mobileSettings();
 
 // Create ball object
 const ball = {
@@ -30,22 +56,12 @@ const paddle = {
   dx: 0
 }
 
-// Create bricks object
-const brickInfo = {
-  w: 70,
-  h: 20,
-  padding: 10,
-  offsetX: 45,
-  offsetY: 60,
-  visible: true
-}
-
 // Create the bricks wall array
 const bricks = [];
 for(let i = 0; i < brickRowCount; i++){
   bricks[i] = [];
   for (let j = 0; j < brickColumnCount; j++){
-    const x = i * (brickInfo.w + brickInfo.padding) + brickInfo.offsetX;
+    const x = i * (brickInfo.w + mobilePadding) + brickInfo.offsetX;
     const y = j * (brickInfo.h + brickInfo.padding) + brickInfo.offsetY;
     bricks[i][j] = {x, y, ...brickInfo}; // using Spread operator    
   }
@@ -135,8 +151,9 @@ function moveBall(){
   // Detect if the ball hit the bottom of the canvas - game over & restart
   // Remember the canvas's drawing is start from the top
   if (ball.y + ball.h > playGround.height) {
-    alert("GAME OVER, RESTART!");
+    // alert("GAME OVER, RESTART!");
     userScore = 0;
+    ball.speed = 4;   
     showAllBricks();
     paddle.w = 180;
   }
@@ -153,12 +170,17 @@ function increaseScore(){
 
   // Challenge the player by reducing the paddle size
   if (userScore >= 20){
-    paddle.w = 80;
+    paddle.w = 100;    
+  } 
+  
+  if (userScore >= 40) {
+    paddle.w = 70;    
   }
 
   // If all bricks are broken, the show all the bricks again
   if(userScore % (brickRowCount * brickColumnCount) === 0){
     showAllBricks(); 
+    ball.speed = 4;   
   }
 }
 
@@ -220,13 +242,12 @@ function removeAllChildNodes() {
 
 // Update canvas drawing and adding animation
 function update(){
-
   removeAllChildNodes();
   movePaddle();
   moveBall();
   draw();
 
-  // Tells the browser that to perform an animation and requests that the browser calls a specified function to update an animation before the next repaint.
+  // Requests that the browser calls a specified function to update an animation before the next repaint.
   requestAnimationFrame(update);
 }
 
@@ -249,6 +270,7 @@ function mouseMoveHandler(e) {
 }
 
 function handleTouchMove(e) {
+  e.preventDefault(); 
   const relativeX = e.touches[0].clientX - playGround.offsetLeft;
   if(relativeX > 0 && relativeX < playGround.width) {
       paddle.x = relativeX - paddle.w/2;
@@ -256,6 +278,7 @@ function handleTouchMove(e) {
 }
 
 function handleTouchStart(e) {
+  e.preventDefault(); 
   const relativeX = e.clientX - playGround.offsetLeft;
   if(relativeX > 0 && relativeX < playGround.width) {
       paddle.x = relativeX - paddle.w/2;
