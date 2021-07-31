@@ -54,3 +54,23 @@ h1 {
   top: 30px;
   right: 100px;
 }
+@media (max-width: 375px) {
+  h1{
+    font-size: 28px;
+    text-align: center;
+  }
+  .playGround{
+    max-width: 95%;
+  }
+  .brick {
+    background-color: #964B00;
+    height: 20px;
+    width: 60px;
+    position: absolute;    
+  }
+  .score {    
+    position: absolute;
+    top: 20px;
+    right: 40px;
+  }
+}
