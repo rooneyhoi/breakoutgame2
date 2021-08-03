@@ -21,8 +21,8 @@ const brickInfo = {
 
 function mobileSettings(){
   if (screen.availWidth < 600 ){
-    playGround.width = 375 * 90%;
-    brickInfo.padding = 5;  
+    playGround.width = screen.availWidth * 0.9;
+    brickInfo.padding = 6;  
     brickInfo.offsetX = 8;
     brickRowCount = 5;
     brickColumnCount = 9;  
@@ -30,6 +30,7 @@ function mobileSettings(){
   else{
     mobilePadding = brickInfo.padding
   }
+  // console.log(playGround.width);
 }
 
 mobileSettings();
@@ -127,9 +128,7 @@ function moveBall(){
       ball.x < paddle.x + paddle.w && 
       ball.y + ball.h > paddle.y){
     ball.dy = -ball.speed;
-    console.log (ball.x + ball.w, paddle.x);
-    // console.log (ball.y + ball.h, paddle.y);
-    
+    // console.log (ball.x + ball.w, paddle.x);        
   }
   
   // Detect if the ball hit the bricks
@@ -219,8 +218,7 @@ function keyUp(e){
 function keyDown(e){
   console.log(e.key);
   if (e.key === 'Right' || e.key === 'ArrowRight'){
-    paddle.dx = paddle.speed;
-    console.log (paddle.w, paddle.x);
+    paddle.dx = paddle.speed;    
   } else if (e.key === 'Left' || e.key === 'ArrowLeft'){
     paddle.dx = -paddle.speed;
   }
