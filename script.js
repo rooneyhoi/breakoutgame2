@@ -2,7 +2,7 @@
 let userScore = 0;
 let brickRowCount = 9;
 let brickColumnCount = 5
-let mobilePadding = 0;
+let mobilePadding = 6;
 
 // Get the play ground div
 const playGround = document.getElementById("playGround");
@@ -21,16 +21,17 @@ const brickInfo = {
 
 function mobileSettings(){
   if (screen.availWidth < 600 ){
-    playGround.width = screen.availWidth * 0.9;
+    playGround.width = 340;
     brickInfo.padding = 6;  
-    brickInfo.offsetX = 8;
+    brickInfo.offsetX = 10;
+    brickInfo.w = 60;
     brickRowCount = 5;
     brickColumnCount = 9;  
   } 
   else{
     mobilePadding = brickInfo.padding
   }
-  // console.log(playGround.width);
+  console.log(brickInfo.padding);
 }
 
 mobileSettings();
