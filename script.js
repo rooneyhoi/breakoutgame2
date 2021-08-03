@@ -21,7 +21,7 @@ const brickInfo = {
 
 function mobileSettings(){
   if (screen.availWidth < 600 ){
-    playGround.width = 375;
+    playGround.width = 340;
     brickInfo.padding = 5;  
     brickInfo.offsetX = 8;
     brickRowCount = 5;
