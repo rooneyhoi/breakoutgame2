@@ -20,8 +20,8 @@ const brickInfo = {
 }
 
 function mobileSettings(){
-  if (screen.availWidth < 800 ){
-    playGround.width = screen.availWidth * 0.95;  
+  if (screen.availWidth < 600 ){
+    playGround.width = 375;
     brickInfo.padding = 5;  
     brickInfo.offsetX = 8;
     brickRowCount = 5;
@@ -51,7 +51,7 @@ const paddle = {
   x: playGround.width / 2 - 40, // because paddle width = 80
   y: playGround.height -20,
   w: 180,
-  h: 10,
+  h: 15,
   speed: 8,
   dx: 0
 }
